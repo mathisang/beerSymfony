@@ -34,6 +34,16 @@ class CategoryRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findByTerm(string $term): array
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.term = :term')
+            ->setParameter('term', $term)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     /*
     public function findOneBySomeField($value): ?Category
     {

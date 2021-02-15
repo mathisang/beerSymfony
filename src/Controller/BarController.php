@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Repository\BeerRepository;
+use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,9 +18,17 @@ class BarController extends AbstractController
 
     private $client;
 
-    public function __construct(HttpClientInterface $client)
+    /** @var CategoryRepository $categoryRepository */
+    private $categoryRepository;
+
+    /** @var BeerRepository $beerRepository */
+    private $beerRepository;
+
+    public function __construct(HttpClientInterface $client, CategoryRepository $categoryRepository, BeerRepository $beerRepository)
     {
         $this->client = $client;
+        $this->categoryRepository = $categoryRepository;
+        $this->beerRepository = $beerRepository;
     }
 
     /**
@@ -100,7 +110,7 @@ class BarController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function home()
+    public function home(): Response
     {
         $beerRepo = $this->getDoctrine()->getRepository(Beer::class);
         $listBeer = $beerRepo->getLastBeers();
@@ -108,6 +118,33 @@ class BarController extends AbstractController
         return $this->render('home/index.html.twig', [
             'title' => "Page d'accueil",
             'listBeer' => $listBeer,
+        ]);
+    }
+
+    /**
+     * @Route("/category/{id}", name="category")
+     */
+    public function beersByCategory(int $id): Response
+    {
+
+        $category = $this->categoryRepository->find($id);
+
+        return $this->render('beers/category.html.twig', [
+            'title' => 'Bières '.$category->getName(),
+            'category' => $category->getName(),
+        ]);
+    }
+
+    public function mainMenu(string $categoryId, string $routeName): Response
+    {
+        $repo = $this->getDoctrine()->getRepository(Category::class);
+
+        $categories = $repo->findByTerm('normal');
+
+        return $this->render('partials/main_menu.html.twig', [
+            'categories' => $categories,
+            'categoryId' => $categoryId,
+            'route_name' => $routeName,
         ]);
     }
 }

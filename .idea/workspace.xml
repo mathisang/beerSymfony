@@ -2,10 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3c2b5b2c-d693-4454-a351-4af7a86eb015" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/BarController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/BarController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Repository/CategoryRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/CategoryRepository.php" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/templates/detail/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/detail/index.html.twig" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+>>>>>>> partie 2 faite
       <change beforePath="$PROJECT_DIR$/templates/partials/main_menu.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partials/main_menu.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -136,6 +141,14 @@
     <state x="2338" y="188" width="604" height="729" key="find.popup" timestamp="1613395084568">
       <screen x="1680" y="25" width="1920" height="1055" />
     </state>
+<<<<<<< HEAD
     <state x="2338" y="188" width="604" height="729" key="find.popup/1680.25.1920.1055/0.25.1680.943@1680.25.1920.1055" timestamp="1613395084568" />
+=======
+    <state x="2338" y="188" width="604" height="729" key="find.popup/1680.25.1920.1055/0.25.1680.943@1680.25.1920.1055" timestamp="1613384002170" />
+    <state x="913" y="259" width="670" height="676" key="search.everywhere.popup" timestamp="1613399092437">
+      <screen x="57" y="25" width="1863" height="1055" />
+    </state>
+    <state x="913" y="259" width="670" height="676" key="search.everywhere.popup/1920.25.1920.1055/57.25.1863.1055@57.25.1863.1055" timestamp="1613399092437" />
+>>>>>>> partie 2 faite
   </component>
 </project>
