@@ -67,12 +67,25 @@ class AppFixtures extends Fixture
 
         $count = 0;
         $repoCountry = $manager->getRepository(Country::class);
+        $repoCategory = $manager->getRepository(Category::class);
         while ($count < 20) {
-            $beer =  new Beer();
+            $beer = new Beer();
             $name = $countries[rand(0, count($countries) - 1)];
             $country = $repoCountry->findOneBy([
                 'name' => $name
             ]);
+
+            $categorySpecial = $categoriesSpecials[rand(0, count($categoriesSpecials) - 1)];
+            $categoryNormal = $categoriesNormals[rand(0, count($categoriesNormals) - 1)];
+            $nameNormal = $repoCategory->findOneBy([
+                'name' => $categoryNormal
+            ]);
+
+            $nameSpecial = $repoCategory->findOneBy([
+                'name' => $categorySpecial
+            ]);
+
+
             // ajout d'un country
             $beer->setCountry($country);
 
@@ -90,6 +103,8 @@ class AppFixtures extends Fixture
 
             $beer->setDegree(rand(40, 90) / 10);
             $beer->setPublishedAt($date);
+            $beer->addCategory($nameNormal);
+            $beer->addCategory($nameSpecial);
 
             $manager->persist($beer);
             $count++;
