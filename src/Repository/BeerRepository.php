@@ -33,6 +33,18 @@ class BeerRepository extends ServiceEntityRepository
         ;
     }
 
+    public function getBeersCategory($category)
+    {
+        return $this->createQueryBuilder('b')
+            ->join('b.categories', 'c')
+            ->where('c.id = :id')
+            ->setParameter('id', $category)
+            ->orderBy('b.published_at', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     /*
     public function findOneBySomeField($value): ?Beer
     {

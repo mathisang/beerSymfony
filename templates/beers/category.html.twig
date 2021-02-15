@@ -3,7 +3,17 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block body %}
+    <h5>{{ category }}</h5>
     <div class="row">
-
+        {% for beer in beers %}
+            <div class="col-sm-6">
+                <div class="card card__beers">
+                    <div class="card-body">
+                        <a href="{{ path('beer_detail', {id: beer.id}) }}" class="card-title">{{ beer.name }}</a>
+                        <p>{{ beer.description }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}

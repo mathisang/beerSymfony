@@ -75,38 +75,6 @@ class BarController extends AbstractController
         ]);
     }
 
-    // A MODIFIER
-//    /**
-//     * @Route("/categorie/{id}", name="categorie")
-//     */
-//    public function categorie($id)
-//    {
-//        $beerRepo = $this->getDoctrine()->getRepository(Beer::class);
-//        $oneBeer = $beerRepo->find($id);
-//
-//        return $this->render('detail/index.html.twig', [
-//            'title' => 'Page beers',
-//            'oneBeer' => $oneBeer
-//        ]);
-//    }
-
-//    /**
-//     * @Route("/menu", name="menu")
-//     */
-//    public function mainMenu(string $category_id, string $routeName): Response
-//    {
-//        // BOUCLER SUR LES CATEGORIES
-//        $cat = ['coucou', 'test', 'mathis'];
-//
-//        $return = '';
-//
-//        // RECUPERER LES CATEGORIES
-//        foreach ($cat as $c) {
-//            $return = $return . '<a href="#">'.$c.'</a>';
-//        }
-//        return new Response($return);
-//    }
-
     /**
      * @Route("/", name="home")
      */
@@ -126,12 +94,15 @@ class BarController extends AbstractController
      */
     public function beersByCategory(int $id): Response
     {
-
         $category = $this->categoryRepository->find($id);
+
+        $beers = $this->beerRepository->getBeersCategory($id);
+
 
         return $this->render('beers/category.html.twig', [
             'title' => 'Bières '.$category->getName(),
             'category' => $category->getName(),
+            'beers' => $beers,
         ]);
     }
 

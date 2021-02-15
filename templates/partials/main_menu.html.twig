@@ -8,17 +8,14 @@
             <li class="nav-item">
                 <a class="nav-link  {% if route_name is defined and route_name == 'home' %} active {% endif %}" href="{{ path('home') }}">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link {% if route_name is defined and route_name == 'beers' %} active {% endif %}" href="{{ path('beers') }}">Beers</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {% if route_name is defined and route_name == 'mentions' %} active {% endif %}" href="{{ path('mentions') }}">Mentions</a>
-            </li>
             {% for category in categories %}
                 <li class="nav-item">
                     <a class="nav-link {% if route_name is defined and route_name == 'category' and categoryId == category.id %} active {% endif %}" href="{{ path('category', { id: category.id }) }}">{{ category.name | capitalize }}</a>
                 </li>
             {% endfor %}
+            <li class="nav-item">
+                <a class="nav-link {% if route_name is defined and route_name == 'mentions' %} active {% endif %}" href="{{ path('mentions') }}">Mentions</a>
+            </li>
         </ul>
     </div>
 </nav>
