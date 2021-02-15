@@ -13,10 +13,17 @@
                         <p>Degree : {{ oneBeer.degree }} </p>
                         <p>{{ oneBeer.description }}</p>
                         <p><small>Date d'invention : {{ oneBeer.publishedAt | date('d/m/Y h:i:s') }} </small></p>
-                        <img src="{{ asset('build/images/beer_00.jpg') }}" />
-                        <p>Category :
-                            {% for cat in oneBeer.categories %}
-                                {{ cat.name }}{% if loop.index == 1 %},{% endif %}
+                        <img src="{{ asset('build/images/beer_00.jpg') }}"/>
+                        <p>
+                            Category :
+                            {% for cat in categoryNormal %}
+                                {{ cat.name }}{% if loop.index == 1 and categoryNormal|length > 1 %},{% endif %}
+                            {% endfor %}
+                        </p>
+                        <p>
+                            Spécialité :
+                            {% for cat in categorySpecial %}
+                                {{ cat.name }}{% if loop.index == 1 and categorySpecial|length > 1 %},{% endif %}
                             {% endfor %}
                         </p>
                         <p>Country : {{ oneBeer.country.name }}</p>

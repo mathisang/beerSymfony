@@ -53,43 +53,49 @@ class BarController extends AbstractController
         $beerRepo = $this->getDoctrine()->getRepository(Beer::class);
         $oneBeer = $beerRepo->find($id);
 
+        $categoryRepo = $this->getDoctrine()->getRepository(Category::class);
+        $categoryNormal = $categoryRepo->findCat('normal', $id);
+        $categorySpecial = $categoryRepo->findCat('special', $id);
+
         return $this->render('detail/index.html.twig', [
             'title' => 'Page beers',
-            'oneBeer' => $oneBeer
+            'oneBeer' => $oneBeer,
+            'categoryNormal' => $categoryNormal,
+            'categorySpecial' => $categorySpecial,
         ]);
     }
 
     // A MODIFIER
-    /**
-     * @Route("/categorie/{id}", name="categorie")
-     */
-    public function categorie($id)
-    {
-        $beerRepo = $this->getDoctrine()->getRepository(Beer::class);
-        $oneBeer = $beerRepo->find($id);
+//    /**
+//     * @Route("/categorie/{id}", name="categorie")
+//     */
+//    public function categorie($id)
+//    {
+//        $beerRepo = $this->getDoctrine()->getRepository(Beer::class);
+//        $oneBeer = $beerRepo->find($id);
+//
+//        return $this->render('detail/index.html.twig', [
+//            'title' => 'Page beers',
+//            'oneBeer' => $oneBeer
+//        ]);
+//    }
 
-        return $this->render('detail/index.html.twig', [
-            'title' => 'Page beers',
-            'oneBeer' => $oneBeer
-        ]);
-    }
-
-    /**
-     * @Route("/menu", name="menu")
-     */
-    public function mainMenu(string $category_id, string $routeName): Response
-    {
-        // BOUCLER SUR LES CATEGORIES
-        $cat = ['coucou', 'test', 'mathis'];
-
-        $return = '';
-
-        // RECUPERER LES CATEGORIES
-        foreach ($cat as $c) {
-            $return = $return . '<a href="#">'.$c.'</a>';
-        }
-        return new Response($return);
-    }
+//    /**
+//     * @Route("/menu", name="menu")
+//     */
+//    public function mainMenu(string $category_id, string $routeName): Response
+//    {
+//        // BOUCLER SUR LES CATEGORIES
+//        $cat = ['coucou', 'test', 'mathis'];
+//
+//        $return = '';
+//
+//        // RECUPERER LES CATEGORIES
+//        foreach ($cat as $c) {
+//            $return = $return . '<a href="#">'.$c.'</a>';
+//        }
+//        return new Response($return);
+//    }
 
     /**
      * @Route("/", name="home")

@@ -4,9 +4,8 @@
     <list default="true" id="3c2b5b2c-d693-4454-a351-4af7a86eb015" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/BarController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/BarController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/bar/index.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/CategoryRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/CategoryRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/detail/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/detail/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/home/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home/index.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/partials/main_menu.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partials/main_menu.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -126,7 +125,7 @@
       <option name="presentableId" value="Default" />
       <updated>1613119228204</updated>
       <workItem from="1613119229547" duration="3400000" />
-      <workItem from="1613378680942" duration="8644000" />
+      <workItem from="1613378680942" duration="10029000" />
     </task>
     <servers />
   </component>

@@ -22,16 +22,16 @@ class CategoryRepository extends ServiceEntityRepository
     // /**
     //  * @return Category[] Returns an array of Category objects
     //  */
-    public function findByName($name, $limit = 10)
+    public function findCat($term, $id)
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.name = :val')
-            ->setParameter('val', $name)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults($limit)
+            ->join('c.beers', 'b')
+            ->where('b.id = :id')
+            ->setParameter('id', $id)
+            ->andWhere('c.term = :term')
+            ->setParameter('term', $term)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
     /*
