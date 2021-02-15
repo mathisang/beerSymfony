@@ -18,3 +18,8 @@
         </ul>
     </div>
 </nav>
+{{render(controller('App\\Controller\\BarController:mainMenu',
+    {
+        'routeName' : app.request.attributes.get('_route'),
+        'category_id' : app.request.attributes.get('id') ?? ''
+    }))}}
