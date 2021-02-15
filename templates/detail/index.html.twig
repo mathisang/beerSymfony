@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        {% if oneBeer %}
+            <div class="col-12">
+                <div class="card card__beers">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ oneBeer.name }}</h5>
+                        <p>Price : {{ oneBeer.price ?? 'aucune information' }} </p>
+                        <p>Degree : {{ oneBeer.degree }} </p>
+                        <p>{{ oneBeer.description }}</p>
+                        <p><small>Date d'invention : {{ oneBeer.publishedAt | date('d/m/Y h:i:s') }} </small></p>
+                        <img src="{{ asset('build/images/beer_00.jpg') }}" />
+                        {# Affichez les catégories dans lesquelles se trouvent vos bières  #}
+                        {% if oneBeer.country  %}
+                            <p> Country : {{ oneBeer.country.name}} </p>
+                        {% else %}
+                            <p>No country</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p>Aucune bière</p>
+        {% endif %}
+    </div>
+{% endblock %}

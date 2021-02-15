@@ -69,15 +69,13 @@ class AppFixtures extends Fixture
         $repoCountry = $manager->getRepository(Country::class);
         while ($count < 20) {
             $beer =  new Beer();
-            // associer un pays une fois sur deux à une bière
-            if (rand(1, 2) === 1) {
-                $name = $countries[rand(0, count($countries) - 1)];
-                $country = $repoCountry->findOneBy([
-                    'name' => $name
-                ]);
-                // ajout d'un country
-                $beer->setCountry($country);
-            }
+            $name = $countries[rand(0, count($countries) - 1)];
+            $country = $repoCountry->findOneBy([
+                'name' => $name
+            ]);
+            // ajout d'un country
+            $beer->setCountry($country);
+
 
             $beer->setName($names[random_int(0, count($names) - 1)]);
             $beer->setDescription($this->lorem(random_int(5, 20)));

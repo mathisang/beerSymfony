@@ -70,10 +70,6 @@ class BarController extends AbstractController
     public function beers()
     {
         $beerRepo = $this->getDoctrine()->getRepository(Beer::class);
-
-        foreach ($beerRepo->findAll() as $beer) {
-           dump($beer->getCountry());
-        }
       
         return $this->render('beers/index.html.twig', [
             'title' => 'Page beers',
@@ -82,13 +78,30 @@ class BarController extends AbstractController
     }
 
     /**
-     * @Route("/home", name="home")
+     * @Route("/beer/{id}", name="beer_detail")
+     */
+    public function beer_detail($id)
+    {
+        $beerRepo = $this->getDoctrine()->getRepository(Beer::class);
+        $oneBeer = $beerRepo->find($id);
+
+        return $this->render('detail/index.html.twig', [
+            'title' => 'Page beers',
+            'oneBeer' => $oneBeer
+        ]);
+    }
+
+    /**
+     * @Route("/", name="home")
      */
     public function home()
     {
+        $beerRepo = $this->getDoctrine()->getRepository(Beer::class);
+        $listBeer = $beerRepo->getLastBeers();
 
         return $this->render('home/index.html.twig', [
             'title' => "Page d'accueil",
+            'listBeer' => $listBeer,
         ]);
     }
 
