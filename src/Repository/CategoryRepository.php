@@ -19,7 +19,7 @@ class CategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Category::class);
     }
 
-    public function findCat($term, $id)
+    public function findCat(string $term, int $id): array
     {
         return $this->createQueryBuilder('c')
             ->join('c.beers', 'b')

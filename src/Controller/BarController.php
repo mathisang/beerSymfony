@@ -9,8 +9,6 @@ use App\Repository\ClientRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Beer;
-use App\Entity\Category;
 
 class BarController extends AbstractController
 {
@@ -34,7 +32,7 @@ class BarController extends AbstractController
     /**
      * @Route("/mentions", name="mentions")
      */
-    public function mentions()
+    public function mentions(): Response
     {
         return $this->render('mentions/index.html.twig', [
             'title' => 'Mentions légales',
@@ -44,7 +42,7 @@ class BarController extends AbstractController
     /**
      * @Route("/statistic", name="statistic")
      */
-    public function statistic()
+    public function statistic(): Response
     {
         $clients = $this->clientRepository->findBy(
             [],
@@ -53,12 +51,11 @@ class BarController extends AbstractController
 
         // Moyenne
         $avgBeers = $this->clientRepository->avgBeerClient();
-        $avgBeers = $avgBeers[0]['numberBeer'];
 
         // Ecart type
         $ecartSomme = 0;
-        foreach ($clients as $c) {
-            $ecartSomme = $ecartSomme + (($avgBeers - $c->getNumberBeer())**2);
+        foreach ($clients as $client) {
+            $ecartSomme = $ecartSomme + (($avgBeers - $client->getNumberBeer())**2);
         }
         $ecartType = sqrt($ecartSomme/count($clients));
 
@@ -73,7 +70,7 @@ class BarController extends AbstractController
     /**
      * @Route("/consommation", name="consommation")
      */
-    public function consommation()
+    public function consommation(): Response
     {
         $clients18 = $this->clientRepository->getAgeConso(18, 25);
         $clients26 = $this->clientRepository->getAgeConso(26, 35);
@@ -81,21 +78,13 @@ class BarController extends AbstractController
         $clients46 = $this->clientRepository->getAgeConso(46, 55);
         $clients56 = $this->clientRepository->getAgeConso(56, 80);
 
-        function avgClients($c) {
-            $somme = 0;
-            for($i = 0; $i < count($c); $i++) {
-                $somme = $somme + $c[$i]->getNumberBeer();
-            }
-            return $somme/count($c);
-        }
-
         return $this->render('consommation/index.html.twig', [
             'title' => 'Consommation',
-            'clients18Avg' => avgClients($clients18),
-            'clients26Avg' => avgClients($clients26),
-            'clients36Avg' => avgClients($clients36),
-            'clients46Avg' => avgClients($clients46),
-            'clients56Avg' => avgClients($clients56),
+            'clients18Avg' => $this->getAverageBeerPerClients($clients18),
+            'clients26Avg' => $this->getAverageBeerPerClients($clients26),
+            'clients36Avg' => $this->getAverageBeerPerClients($clients36),
+            'clients46Avg' => $this->getAverageBeerPerClients($clients46),
+            'clients56Avg' => $this->getAverageBeerPerClients($clients56),
             'clients18Nb' => count($clients18),
             'clients26Nb' => count($clients26),
             'clients36Nb' => count($clients36),
@@ -107,7 +96,7 @@ class BarController extends AbstractController
     /**
      * @Route("/beers", name="beers")
      */
-    public function beers()
+    public function beers(): Response
     {
         $beers = $this->beerRepository->findAll();
       
@@ -120,7 +109,7 @@ class BarController extends AbstractController
     /**
      * @Route("/beer/{id}", name="beer_detail")
      */
-    public function beer_detail($id)
+    public function beer_detail($id): Response
     {
         $oneBeer = $this->beerRepository->find($id);
         $categoryNormal = $this->categoryRepository->findCat('normal', $id);
@@ -172,5 +161,14 @@ class BarController extends AbstractController
             'categoryId' => $categoryId,
             'route_name' => $routeName,
         ]);
+    }
+
+    private function getAverageBeerPerClients(array $clients): int
+    {
+        $somme = 0;
+        for($i = 0; $i < count($clients); $i++) {
+            $somme = $somme + $clients[$i]->getNumberBeer();
+        }
+        return $somme/count($clients);
     }
 }

@@ -19,16 +19,16 @@ class ClientRepository extends ServiceEntityRepository
         parent::__construct($registry, Client::class);
     }
 
-    public function avgBeerClient()
+    public function avgBeerClient(): string
     {
         return $this->createQueryBuilder('c')
             ->select('AVG(c.number_beer) as numberBeer')
             ->getQuery()
-            ->getResult()
+            ->getSingleScalarResult()
         ;
     }
 
-    public function getAgeConso($min, $max)
+    public function getAgeConso(int $min, int $max): array
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.age >= ' . $min)

@@ -19,7 +19,7 @@ class BeerRepository extends ServiceEntityRepository
         parent::__construct($registry, Beer::class);
     }
 
-    public function getLastBeers()
+    public function getLastBeers(): array
     {
         return $this->createQueryBuilder('b')
             ->orderBy('b.published_at', 'DESC')
@@ -28,7 +28,7 @@ class BeerRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function getBeersCategory($category)
+    public function getBeersCategory(int $category): array
     {
         return $this->createQueryBuilder('b')
             ->join('b.categories', 'c')
