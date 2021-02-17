@@ -22,19 +22,26 @@ class ClientRepository extends ServiceEntityRepository
     // /**
     //  * @return Client[] Returns an array of Client objects
     //  */
-    /*
-    public function findByExampleField($value)
+
+    public function avgBeerClient()
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+            ->select('AVG(c.number_beer) as numberBeer')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
+    public function getAgeConso($min, $max)
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.age >= ' . $min)
+            ->andWhere('c.age <= ' . $max)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 
     /*
     public function findOneBySomeField($value): ?Client

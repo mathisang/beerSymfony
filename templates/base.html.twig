@@ -24,7 +24,15 @@
 
             <div class="row">
                 <div class="col-md-4">
-                Sidebar
+                    {% if title == 'Statistic' %}
+                        <p>Nombre de clients : {{ clients|length }}</p>
+                        <p>Moyenne de bière acheté : {{ avgBeers|number_format(2, '.', ',') }}</p>
+                        <p>Écart type de la moyenne : {{ ecartType|number_format(2, '.', ',') }}</p>
+                    {% elseif title == 'Consommation' %}
+                        <p>Nombre de clients total : {{ clients18Nb+clients26Nb+clients36Nb+clients46Nb+clients56Nb }}</p>
+                    {% else %}
+                        Sidebar
+                    {% endif %}
                 </div>
                 <div class="col-md-8">
                 {% block body %}{% endblock %}

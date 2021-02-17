@@ -3,5 +3,20 @@
     margin :  1.1rem;
 }
 
+table {
+    width: 100%;
+
+    th {
+        background: #cbcbcb;
+        border: 1px solid #a8a8a8;
+        padding: .5rem;
+    }
+
+    td {
+        border: 1px solid #bbbbbb;
+        padding: .5rem;
+    }
+}
+
 
 @import "~bootstrap/scss/bootstrap";

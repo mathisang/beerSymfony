@@ -16,6 +16,12 @@
             <li class="nav-item">
                 <a class="nav-link {% if route_name is defined and route_name == 'mentions' %} active {% endif %}" href="{{ path('mentions') }}">Mentions</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link {% if route_name is defined and route_name == 'statistic' %} active {% endif %}" href="{{ path('statistic') }}">Statistic</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if route_name is defined and route_name == 'consommation' %} active {% endif %}" href="{{ path('consommation') }}">Consommation</a>
+            </li>
         </ul>
     </div>
 </nav>

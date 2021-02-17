@@ -22,9 +22,10 @@ class StatisticFixtures extends Fixture implements DependentFixtureInterface
 
             $client->setEmail('client' . $count . '@mail.com');
             $client->setWeight(random_int(40, 120));
-            $client->setName('client kiboi' . $count);
+            $client->setName('Client' . $count);
+            $client->setAge(random_int(18, 80));
 
-            $numberBeer = random_int(1, 6);
+            $numberBeer = random_int(1, 20);
 
             for ($i = 1; $i <= $numberBeer; $i++) {
                 $beerId = $repoBeer->findAll();

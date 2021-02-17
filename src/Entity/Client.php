@@ -44,6 +44,11 @@ class Client
      */
     private $statistics;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $age;
+
     public function __construct()
     {
         $this->statistics = new ArrayCollection();
@@ -128,6 +133,18 @@ class Client
                 $statistic->setClient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAge(): ?int
+    {
+        return $this->age;
+    }
+
+    public function setAge(int $age): self
+    {
+        $this->age = $age;
 
         return $this;
     }

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Client;
 use App\Repository\BeerRepository;
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -43,6 +44,72 @@ class BarController extends AbstractController
     }
 
     /**
+     * @Route("/statistic", name="statistic")
+     */
+    public function statistic()
+    {
+        $clientRepo = $this->getDoctrine()->getRepository(Client::class);
+        $clients = $clientRepo->findBy(
+            [],
+            ['number_beer' => 'DESC']
+        );
+
+        // Moyenne
+        $avgBeers = $clientRepo->avgBeerClient();
+        $avgBeers = $avgBeers[0]['numberBeer'];
+
+        // Ecart type
+        $ecartSomme = 0;
+        foreach ($clients as $c) {
+            $ecartSomme = $ecartSomme + (($avgBeers - $c->getNumberBeer())**2);
+        }
+        $ecartType = sqrt($ecartSomme/count($clients));
+
+        return $this->render('statistic/index.html.twig', [
+            'title' => 'Statistic',
+            'clients' => $clients,
+            'avgBeers' => $avgBeers,
+            'ecartType' => $ecartType,
+        ]);
+    }
+
+    /**
+     * @Route("/consommation", name="consommation")
+     */
+    public function consommation()
+    {
+        $clientRepo = $this->getDoctrine()->getRepository(Client::class);
+
+        $clients18 = $clientRepo->getAgeConso(18, 25);
+        $clients26 = $clientRepo->getAgeConso(26, 35);
+        $clients36 = $clientRepo->getAgeConso(36, 45);
+        $clients46 = $clientRepo->getAgeConso(46, 55);
+        $clients56 = $clientRepo->getAgeConso(56, 80);
+
+        function avgClients($c) {
+            $somme = 0;
+            for($i = 0; $i < count($c); $i++) {
+                $somme = $somme + $c[$i]->getNumberBeer();
+            }
+            return $somme/count($c);
+        }
+
+        return $this->render('consommation/index.html.twig', [
+            'title' => 'Consommation',
+            'clients18Avg' => avgClients($clients18),
+            'clients26Avg' => avgClients($clients26),
+            'clients36Avg' => avgClients($clients36),
+            'clients46Avg' => avgClients($clients46),
+            'clients56Avg' => avgClients($clients56),
+            'clients18Nb' => count($clients18),
+            'clients26Nb' => count($clients26),
+            'clients36Nb' => count($clients36),
+            'clients46Nb' => count($clients46),
+            'clients56Nb' => count($clients56),
+        ]);
+    }
+
+    /**
      * @Route("/beers", name="beers")
      */
     public function beers()
@@ -51,7 +118,6 @@ class BarController extends AbstractController
       
         return $this->render('beers/index.html.twig', [
             'title' => 'Page beers',
-            'beers' => $beerRepo->findAll()
         ]);
     }
 

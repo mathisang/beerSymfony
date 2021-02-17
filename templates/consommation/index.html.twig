@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ title }}</h5>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Tranche d'age</th>
+                            <th>Nb moyen bière acheté</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>18 - 25 ans <i>({{ clients18Nb }} clients)</i></td>
+                                <td>{{ clients18Avg|number_format(2, '.', ',') }}</td>
+                            </tr>
+                            <tr>
+                                <td>26 - 35 ans <i>({{ clients26Nb }} clients)</i></td>
+                                <td>{{ clients26Avg|number_format(2, '.', ',') }}</td>
+                            </tr>
+                            <tr>
+                                <td>36 - 45 ans <i>({{ clients36Nb }} clients)</i></td>
+                                <td>{{ clients36Avg|number_format(2, '.', ',') }}</td>
+                            </tr>
+                            <tr>
+                                <td>46 - 55 ans <i>({{ clients46Nb }} clients)</i></td>
+                                <td>{{ clients46Avg|number_format(2, '.', ',') }}</td>
+                            </tr>
+                            <tr>
+                                <td>+55 ans <i>({{ clients56Nb }} clients)</i></td>
+                                <td>{{ clients56Avg|number_format(2, '.', ',') }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
