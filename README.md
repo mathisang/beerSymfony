@@ -33,4 +33,4 @@ Cette méthode va nous permettre de récupérer la catégorie spéciale d'une bi
 
 ## UML
 
-![alt text](https://github.com/mathisang/beerSymfony/blob/master/assets/uml.png?raw=true)
+![uml](https://raw.githubusercontent.com/mathisang/beerSymfony/main/assets/uml.png)
