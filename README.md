@@ -30,3 +30,7 @@ public function findCatSpecial(int $id)
 
 Cette méthode va nous permettre de récupérer la catégorie spéciale d'une bière grace
 à  l'argument `id` que nous lui passons.
+
+## UML
+
+![alt text](https://github.com/mathisang/beerSymfony/blob/master/assets/uml.png?raw=true)
