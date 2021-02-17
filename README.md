@@ -1,5 +1,7 @@
 # beerSymfony
 
+GENESTIER Louis, ANGIBAUD Mathis, ADAMCZAK Rayan, MARY Alexandre, BLANCHARD Timothée, DA SILVA Sacha
+
 ## Launch the project
 ```
 composer i  
@@ -12,6 +14,7 @@ symfony server:run
 
 ## Partie 4  
 
+```
 public function findCatSpecial(int $id)
 {
     return $this->createQueryBuilder('c')
