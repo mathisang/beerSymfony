@@ -29,8 +29,7 @@ class BeerRepository extends ServiceEntityRepository
             ->orderBy('b.published_at', 'DESC')
             ->setMaxResults(3)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
     public function getBeersCategory($category)
@@ -41,8 +40,7 @@ class BeerRepository extends ServiceEntityRepository
             ->setParameter('id', $category)
             ->orderBy('b.published_at', 'DESC')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
     /*
