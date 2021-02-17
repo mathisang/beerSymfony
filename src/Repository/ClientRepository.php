@@ -19,10 +19,6 @@ class ClientRepository extends ServiceEntityRepository
         parent::__construct($registry, Client::class);
     }
 
-    // /**
-    //  * @return Client[] Returns an array of Client objects
-    //  */
-
     public function avgBeerClient()
     {
         return $this->createQueryBuilder('c')
@@ -41,17 +37,4 @@ class ClientRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-
-
-    /*
-    public function findOneBySomeField($value): ?Client
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

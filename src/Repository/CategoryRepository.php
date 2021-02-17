@@ -19,9 +19,6 @@ class CategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Category::class);
     }
 
-    // /**
-    //  * @return Category[] Returns an array of Category objects
-    //  */
     public function findCat($term, $id)
     {
         return $this->createQueryBuilder('c')
@@ -43,16 +40,4 @@ class CategoryRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-
-    /*
-    public function findOneBySomeField($value): ?Category
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

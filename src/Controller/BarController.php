@@ -5,19 +5,15 @@ namespace App\Controller;
 use App\Entity\Client;
 use App\Repository\BeerRepository;
 use App\Repository\CategoryRepository;
+use App\Repository\ClientRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-
 use App\Entity\Beer;
 use App\Entity\Category;
 
 class BarController extends AbstractController
 {
-
-    private $client;
 
     /** @var CategoryRepository $categoryRepository */
     private $categoryRepository;
@@ -25,11 +21,14 @@ class BarController extends AbstractController
     /** @var BeerRepository $beerRepository */
     private $beerRepository;
 
-    public function __construct(HttpClientInterface $client, CategoryRepository $categoryRepository, BeerRepository $beerRepository)
+    /** @var clientRepository $clientRepository */
+    private $clientRepository;
+
+    public function __construct(CategoryRepository $categoryRepository, BeerRepository $beerRepository, clientRepository $clientRepository)
     {
-        $this->client = $client;
         $this->categoryRepository = $categoryRepository;
         $this->beerRepository = $beerRepository;
+        $this->clientRepository = $clientRepository;
     }
 
     /**
@@ -37,7 +36,6 @@ class BarController extends AbstractController
      */
     public function mentions()
     {
-
         return $this->render('mentions/index.html.twig', [
             'title' => 'Mentions légales',
         ]);
@@ -48,14 +46,13 @@ class BarController extends AbstractController
      */
     public function statistic()
     {
-        $clientRepo = $this->getDoctrine()->getRepository(Client::class);
-        $clients = $clientRepo->findBy(
+        $clients = $this->clientRepository->findBy(
             [],
             ['number_beer' => 'DESC']
         );
 
         // Moyenne
-        $avgBeers = $clientRepo->avgBeerClient();
+        $avgBeers = $this->clientRepository->avgBeerClient();
         $avgBeers = $avgBeers[0]['numberBeer'];
 
         // Ecart type
@@ -78,13 +75,11 @@ class BarController extends AbstractController
      */
     public function consommation()
     {
-        $clientRepo = $this->getDoctrine()->getRepository(Client::class);
-
-        $clients18 = $clientRepo->getAgeConso(18, 25);
-        $clients26 = $clientRepo->getAgeConso(26, 35);
-        $clients36 = $clientRepo->getAgeConso(36, 45);
-        $clients46 = $clientRepo->getAgeConso(46, 55);
-        $clients56 = $clientRepo->getAgeConso(56, 80);
+        $clients18 = $this->clientRepository->getAgeConso(18, 25);
+        $clients26 = $this->clientRepository->getAgeConso(26, 35);
+        $clients36 = $this->clientRepository->getAgeConso(36, 45);
+        $clients46 = $this->clientRepository->getAgeConso(46, 55);
+        $clients56 = $this->clientRepository->getAgeConso(56, 80);
 
         function avgClients($c) {
             $somme = 0;
@@ -114,10 +109,11 @@ class BarController extends AbstractController
      */
     public function beers()
     {
-        $beerRepo = $this->getDoctrine()->getRepository(Beer::class);
+        $beers = $this->beerRepository->findAll();
       
         return $this->render('beers/index.html.twig', [
             'title' => 'Page beers',
+            'beers' => $beers,
         ]);
     }
 
@@ -126,12 +122,9 @@ class BarController extends AbstractController
      */
     public function beer_detail($id)
     {
-        $beerRepo = $this->getDoctrine()->getRepository(Beer::class);
-        $oneBeer = $beerRepo->find($id);
-
-        $categoryRepo = $this->getDoctrine()->getRepository(Category::class);
-        $categoryNormal = $categoryRepo->findCat('normal', $id);
-        $categorySpecial = $categoryRepo->findCat('special', $id);
+        $oneBeer = $this->beerRepository->find($id);
+        $categoryNormal = $this->categoryRepository->findCat('normal', $id);
+        $categorySpecial = $this->categoryRepository->findCat('special', $id);
 
         return $this->render('detail/index.html.twig', [
             'title' => 'Page beers',
@@ -146,8 +139,7 @@ class BarController extends AbstractController
      */
     public function home(): Response
     {
-        $beerRepo = $this->getDoctrine()->getRepository(Beer::class);
-        $listBeer = $beerRepo->getLastBeers();
+        $listBeer = $this->beerRepository->getLastBeers();
 
         return $this->render('home/index.html.twig', [
             'title' => "Page d'accueil",
@@ -164,7 +156,6 @@ class BarController extends AbstractController
 
         $beers = $this->beerRepository->getBeersCategory($id);
 
-
         return $this->render('beers/category.html.twig', [
             'title' => 'Bières '.$category->getName(),
             'category' => $category->getName(),
@@ -174,9 +165,7 @@ class BarController extends AbstractController
 
     public function mainMenu(string $categoryId, string $routeName): Response
     {
-        $repo = $this->getDoctrine()->getRepository(Category::class);
-
-        $categories = $repo->findByTerm('normal');
+        $categories = $this->categoryRepository->findByTerm('normal');
 
         return $this->render('partials/main_menu.html.twig', [
             'categories' => $categories,

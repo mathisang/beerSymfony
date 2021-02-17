@@ -19,10 +19,6 @@ class BeerRepository extends ServiceEntityRepository
         parent::__construct($registry, Beer::class);
     }
 
-    // /**
-    //  * @return Beer[] Returns an array of Beer objects
-    //  */
-
     public function getLastBeers()
     {
         return $this->createQueryBuilder('b')
@@ -42,16 +38,4 @@ class BeerRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-
-    /*
-    public function findOneBySomeField($value): ?Beer
-    {
-        return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
